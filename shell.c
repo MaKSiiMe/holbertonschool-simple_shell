@@ -23,15 +23,12 @@ int synchronus_child_execution(char *args[])
 	int status;
 	pid_t pid;
 	char **_env = environ;
-	printf("START SYNCH...\n");
-	printf("args[0] = %s\n", args[0]);
+
 	if (access(args[0], F_OK) != -1)
 	{
-		printf("file exists\n");
 
 		if (access(args[0], X_OK) != -1)
 		{
-			printf("file is executable\n");
 			pid = fork();
 
 			if (pid < 0)
@@ -62,7 +59,6 @@ int synchronus_child_execution(char *args[])
 		print_error_message("file does not exist");
 		exit(0);
 	}
-	printf("END SYNCH...\n");
 
 	return (ret);
 }
@@ -74,12 +70,16 @@ int synchronus_child_execution(char *args[])
 
 char **parse_cmd_line(char *cmd_line)
 {
-	char *tmp;
-	char **ret;
+	char *tmp = NULL;
+	char **ret = NULL;
 	int i = 0, size = 0;
 	char *copy = strdup(cmd_line);
 
-	printf("START PARSE...\n");
+	if (!copy)
+	{
+		print_error_message("Error with strdup");
+		return (NULL);
+	}
 	tmp = strtok(copy, " ");
 
 	while (tmp)
@@ -102,14 +102,14 @@ char **parse_cmd_line(char *cmd_line)
 
 	while (tmp)
 	{
-		ret[i] = tmp;
-		printf("ret[%d] = %s\n", i, tmp);
+		ret[i] = strdup(tmp);
 		i++;
 		tmp = strtok(NULL, " \r\n");
 	}
 	free(tmp);
+	free(copy);
 	ret[++i] = NULL;
-	printf("END PARSE...\n");
+
 
 	return (ret);
 }
@@ -128,19 +128,15 @@ int call_non_interactive_mode(void)
 
 	while (read_chars != -1)
 	{
-		printf("START WHILE...\n");
 		read_chars = getline(&cmd_line, &len_cmd_line, stdin);
-		printf("getline\n");
 		if (read_chars == EOF)
 		{
 			free(cmd_line);
 			return (0);
 		}
-		printf("%s", cmd_line);
 		synchronus_child_execution(parse_cmd_line(cmd_line));
 		len_cmd_line = 0;
 		free(cmd_line);
-		printf("END WHILE...\n");
 	}
 	free(cmd_line);
 
