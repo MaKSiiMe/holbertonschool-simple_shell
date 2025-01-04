@@ -6,7 +6,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include <unistd.h>
 
 /**
  *
@@ -15,8 +14,13 @@
  *
  */
 
-void call_interative_mode();
-void call_non_interactive_mode(int argc, char *argv[]);
+extern char **environ;
+
+int call_interactive_mode(void);
+int call_non_interactive_mode(void);
+int synchronus_child_execution(char *args[]);
+void print_error_message(char *message);
+char **parse_cmd_line(char *cmd_line);
 
 
 
