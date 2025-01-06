@@ -68,17 +68,22 @@ int synchronus_child_execution(char *args[])
  *
  */
 
-char **parse_cmd_line(char *cmd_line)
+int parse_cmd_line(char *cmd_line, char ***ret)
 {
 	char *tmp = NULL;
-	char **ret = NULL;
 	int i = 0, size = 0;
 	char *copy = strdup(cmd_line);
+
+	if ((*ret))
+	{
+		print_error_message("Error ret is not NULL");
+		return (0);
+	}
 
 	if (!copy)
 	{
 		print_error_message("Error with strdup");
-		return (NULL);
+		return (0);
 	}
 	tmp = strtok(copy, " ");
 
@@ -87,10 +92,11 @@ char **parse_cmd_line(char *cmd_line)
 		size++;
 		tmp = strtok(NULL, " ");
 	}
+	size++;
 
-	ret = malloc(sizeof(char *) * (size + 1));
+	*ret = (char**)malloc(sizeof(char *) * size);
 
-	if (!ret)
+	if (!(*ret))
 	{
 		printf("Error in parse_cmd_line\n");
 		free(tmp);
@@ -102,16 +108,17 @@ char **parse_cmd_line(char *cmd_line)
 
 	while (tmp)
 	{
-		ret[i] = strdup(tmp);
+		(*ret)[i] = strdup(tmp);
+		printf("PARSE %s\n", (*ret)[i]);
 		i++;
 		tmp = strtok(NULL, " \r\n");
 	}
 	free(tmp);
 	free(copy);
-	ret[++i] = NULL;
+	(*ret)[++i] = NULL;
 
 
-	return (ret);
+	return (size);
 }
 
 /**
@@ -121,10 +128,11 @@ char **parse_cmd_line(char *cmd_line)
 
 int call_non_interactive_mode(void)
 {
-	int ret = 0;
+	int ret = 0, nb_args = 0;
 	ssize_t read_chars = 0;
 	char *cmd_line;
 	size_t len_cmd_line;
+	char **args = NULL;
 
 	while (read_chars != -1)
 	{
@@ -134,9 +142,14 @@ int call_non_interactive_mode(void)
 			free(cmd_line);
 			return (0);
 		}
-		synchronus_child_execution(parse_cmd_line(cmd_line));
+		nb_args = parse_cmd_line(cmd_line, &args);
+
+		if (nb_args >= 2)
+			synchronus_child_execution(args);
+
 		len_cmd_line = 0;
 		free(cmd_line);
+		args = NULL;
 	}
 	free(cmd_line);
 
@@ -150,9 +163,46 @@ int call_non_interactive_mode(void)
 
 int call_interactive_mode(void)
 {
-	int ret = 0;
+	int ret = 0, run = 1, nb_args = 0, i = 0;
+	ssize_t read_chars = 0;
+	char *cmd_line = NULL;
+	size_t len_cmd_line = 0;
+	char **args = NULL;
 
+	while (run)
+	{
+		printf("($) ");
 
+		fflush(stdin);
+		args = NULL;
+		read_chars = getline(&cmd_line, &len_cmd_line, stdin);
+		printf("getline\n");
+		if (read_chars == EOF)
+		{
+			free(cmd_line);
+			run = 0;
+		}
+		len_cmd_line = 0;
+		/*cmd_line = NULL;*/
 
+		printf("hello %s", cmd_line);
+		if (strncmp(cmd_line, "exit", 4) == 0)
+		{
+			shell_exit(cmd_line);
+		}
+		if (strncmp(cmd_line, "env", 3) == 0)
+		{
+			print_env();
+			continue;
+		}
+
+		nb_args = parse_cmd_line(cmd_line, &args);
+		if (nb_args >= 2)
+			synchronus_child_execution(args);
+
+	}
+	for (i = nb_args - 1; i >= 0; i--)
+		free(args[i]);
+	free(args);
 	return (ret);
 }
