@@ -20,8 +20,9 @@ int call_interactive_mode(void);
 int call_non_interactive_mode(void);
 int synchronus_child_execution(char *args[]);
 void print_error_message(char *message);
-char **parse_cmd_line(char *cmd_line);
-
+int parse_cmd_line(char *cmd_line, char ***ret);
+void shell_exit(char *cmd_line);
+void print_env(void);
 
 
 
