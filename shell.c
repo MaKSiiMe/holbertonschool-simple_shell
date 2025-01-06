@@ -20,14 +20,20 @@ void print_error_message(char *message)
 int synchronus_child_execution(char *args[])
 {
 	int ret = 0;
-	int status;
+	int status = 0;
 	pid_t pid;
+	char *tmp = NULL;
 	char **_env = environ;
 
-	if (access(args[0], F_OK) != -1)
+	tmp = find_in_path(args[0]);
+	if (!tmp)
+		tmp = args[0];
+
+	
+	if (access(tmp, F_OK) != -1)
 	{
 
-		if (access(args[0], X_OK) != -1)
+		if (access(tmp, X_OK) != -1)
 		{
 			pid = fork();
 
@@ -38,7 +44,7 @@ int synchronus_child_execution(char *args[])
 			}
 			else if (pid == 0)
 			{
-				execve(args[0], args, _env);
+				execve(tmp, args, _env);
 				exit(0);
 			}
 			else
@@ -104,14 +110,13 @@ int parse_cmd_line(char *cmd_line, char ***ret)
 	}
 	tmp = NULL;
 
-	tmp = strtok(cmd_line, " \r\n");
+	tmp = strtok(cmd_line, " \n");
 
 	while (tmp)
 	{
 		(*ret)[i] = strdup(tmp);
-		printf("PARSE %s\n", (*ret)[i]);
 		i++;
-		tmp = strtok(NULL, " \r\n");
+		tmp = strtok(NULL, " \n");
 	}
 	free(tmp);
 	free(copy);
@@ -176,16 +181,13 @@ int call_interactive_mode(void)
 		fflush(stdin);
 		args = NULL;
 		read_chars = getline(&cmd_line, &len_cmd_line, stdin);
-		printf("getline\n");
 		if (read_chars == EOF)
 		{
 			free(cmd_line);
 			run = 0;
 		}
 		len_cmd_line = 0;
-		/*cmd_line = NULL;*/
-
-		printf("hello %s", cmd_line);
+		
 		if (strncmp(cmd_line, "exit", 4) == 0)
 		{
 			shell_exit(cmd_line);
@@ -195,6 +197,8 @@ int call_interactive_mode(void)
 			print_env();
 			continue;
 		}
+		if (cmd_line[0] == '\n')
+			continue;
 
 		nb_args = parse_cmd_line(cmd_line, &args);
 		if (nb_args >= 2)
