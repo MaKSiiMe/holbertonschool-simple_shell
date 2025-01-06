@@ -53,3 +53,32 @@ void print_env(void)
 		i++;
 	}
 }
+
+/**
+ *
+ *
+ */
+
+char *my_getenv(char *_env)
+{
+	int i = 0, len_env = 0;
+	char *buf = NULL;
+	char *env_copy = NULL;
+	
+	while (_env[len_env] != '\0')
+		len_env++;
+
+	for (i = 0; environ[i] != NULL; i++)
+	{
+		if (strncmp(environ[i], _env, len_env) == 0)
+		{
+			env_copy = strdup(environ[i]);
+			buf = strtok(env_copy, "=");
+			buf = strtok(NULL, "=");
+			return (buf);
+		}
+	}
+	return (buf);
+}
+
+
