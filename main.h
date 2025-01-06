@@ -23,6 +23,8 @@ void print_error_message(char *message);
 int parse_cmd_line(char *cmd_line, char ***ret);
 void shell_exit(char *cmd_line);
 void print_env(void);
+char *my_getenv(char *_env);
+char *find_in_path(char *command);
 
 
 
