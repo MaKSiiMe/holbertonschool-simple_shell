@@ -1,8 +1,9 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- *
- *
+ * shell_exit - function implement the exit built-in
+ * @cmd_line: command that was entered by the user and its arguments
+ * Return: Void
  */
 
 void shell_exit(char *cmd_line)
@@ -33,14 +34,11 @@ void shell_exit(char *cmd_line)
 	}
 	else
 		print_error_message("Exit faillure");
-
-
-
 }
 
 /**
- *
- *
+ *  print_env - function display the environment of the current process
+ *  Return : Void
  */
 
 void print_env(void)
@@ -55,8 +53,9 @@ void print_env(void)
 }
 
 /**
- *
- *
+ * my_getenv - function get the value of an environment variable
+ * @_env: name the variable environement that gives its value
+ * Return: the value environment variable if found, otherwise NULL
  */
 
 char *my_getenv(char *_env)
@@ -64,7 +63,7 @@ char *my_getenv(char *_env)
 	int i = 0, len_env = 0;
 	char *buf = NULL;
 	char *env_copy = NULL;
-	
+
 	while (_env[len_env] != '\0')
 		len_env++;
 
