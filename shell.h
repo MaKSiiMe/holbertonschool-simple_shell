@@ -7,13 +7,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-/**
- *
- *
- *
- *
- */
-
 extern char **environ;
 
 int call_interactive_mode(void);
@@ -25,10 +18,5 @@ void shell_exit(char *cmd_line);
 void print_env(void);
 char *my_getenv(char *_env);
 char *find_in_path(char *command);
-
-
-
-
-
 
 #endif
