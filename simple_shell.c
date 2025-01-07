@@ -1,7 +1,8 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- *
+ * call_non_interactive_mode - function executing shell in non interective mode
+ * Return: 0 if success execution
  *
  */
 
@@ -36,8 +37,9 @@ int call_non_interactive_mode(void)
 }
 
 /**
+ * call_interactive_mode - function executing shell in interective mode
  *
- *
+ * Return: 0 if success execution
  */
 
 int call_interactive_mode(void)
@@ -61,7 +63,6 @@ int call_interactive_mode(void)
 			run = 0;
 		}
 		len_cmd_line = 0;
-		
 		if (strncmp(cmd_line, "exit", 4) == 0)
 		{
 			shell_exit(cmd_line);
@@ -77,7 +78,6 @@ int call_interactive_mode(void)
 		nb_args = parse_cmd_line(cmd_line, &args);
 		if (nb_args >= 2)
 			synchronus_child_execution(args);
-
 	}
 	for (i = nb_args - 1; i >= 0; i--)
 		free(args[i]);
