@@ -1,11 +1,10 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * synchronus_child_execution - create & execute a child. Wait for termination
- * @exec_file: Path to the executable file
- * Return : Error code otherwise 0
+ * @args: Array of arguments for the command to be executed
+ * Return: Error code otherwise 0
  */
-
 int synchronus_child_execution(char *args[])
 {
 	int ret = 0;
@@ -18,14 +17,11 @@ int synchronus_child_execution(char *args[])
 	if (!tmp)
 		tmp = args[0];
 
-	
 	if (access(tmp, F_OK) != -1)
 	{
-
 		if (access(tmp, X_OK) != -1)
 		{
 			pid = fork();
-
 			if (pid < 0)
 			{
 				print_error_message("Cannot create child process");
@@ -37,30 +33,26 @@ int synchronus_child_execution(char *args[])
 				exit(0);
 			}
 			else
-			{
 				wait(&status);
-			}
-
 		}
 		else
 		{
 			print_error_message("file is not executable\n");
 			exit(0);
 		}
-
 	}
 	else
 	{
 		print_error_message("file does not exist");
 		exit(0);
 	}
-
 	return (ret);
 }
-
 /**
- *
- *
+ * parse_cmd_line - function parses a command line and transform an array args
+ * @ret: pointer to an array that will receive the adress of the array of args
+ * @cmd_line: String containing the command line to be parsed
+ * Return: the number of arguments
  */
 
 int parse_cmd_line(char *cmd_line, char ***ret)
@@ -74,23 +66,19 @@ int parse_cmd_line(char *cmd_line, char ***ret)
 		print_error_message("Error ret is not NULL");
 		return (0);
 	}
-
 	if (!copy)
 	{
 		print_error_message("Error with strdup");
 		return (0);
 	}
 	tmp = strtok(copy, " ");
-
 	while (tmp)
 	{
 		size++;
 		tmp = strtok(NULL, " ");
 	}
 	size++;
-
-	*ret = (char**)malloc(sizeof(char *) * size);
-
+	*ret = (char **)malloc(sizeof(char *) * size);
 	if (!(*ret))
 	{
 		printf("Error in parse_cmd_line\n");
@@ -98,9 +86,7 @@ int parse_cmd_line(char *cmd_line, char ***ret)
 		exit(0);
 	}
 	tmp = NULL;
-
 	tmp = strtok(cmd_line, " \n");
-
 	while (tmp)
 	{
 		(*ret)[i] = strdup(tmp);
@@ -110,7 +96,5 @@ int parse_cmd_line(char *cmd_line, char ***ret)
 	free(tmp);
 	free(copy);
 	(*ret)[++i] = NULL;
-
-
 	return (size);
 }
