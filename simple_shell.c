@@ -53,7 +53,6 @@ int call_interactive_mode(void)
 	while (run)
 	{
 		printf("($) ");
-
 		fflush(stdin);
 		args = NULL;
 		read_chars = getline(&cmd_line, &len_cmd_line, stdin);
@@ -61,12 +60,13 @@ int call_interactive_mode(void)
 		{
 			free(cmd_line);
 			run = 0;
+			printf("\n");
+			continue;
 		}
 		len_cmd_line = 0;
 		if (strncmp(cmd_line, "exit", 4) == 0)
-		{
 			shell_exit(cmd_line);
-		}
+
 		if (strncmp(cmd_line, "env", 3) == 0)
 		{
 			print_env();
