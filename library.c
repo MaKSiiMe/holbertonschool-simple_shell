@@ -81,4 +81,13 @@ char *my_getenv(char *_env)
 	return (buf);
 }
 
+/**
+ * print_error_message - Prints an error message
+ * @message: The error message to print
+ * Return : Void
+ */
 
+void print_error_message(char *message)
+{
+	printf("%s\n", message);
+}
