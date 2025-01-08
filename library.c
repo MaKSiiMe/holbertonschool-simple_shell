@@ -35,11 +35,9 @@ int shell_exit(char *cmd_line, int cmd_num)
 			exit(code);
 	}
 	else
-		ret = 2;
-	
+		ret = 2;	
 	for (int i = 0; i < nb_args; i++)
 		free(args[i]);
-	
 	free(args);
 	return (ret);
 }

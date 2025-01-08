@@ -116,8 +116,7 @@ int call_interactive_mode(void)
 		free(args);
 		free(cmd_line);
 		cmd_line = NULL;
-
+		len_cmd_line = 0;
 	}
-	free(cmd_line);
 	return (ret);
 }

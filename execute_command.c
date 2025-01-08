@@ -86,7 +86,6 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 		free(copy);
 		exit(0);
 	}
-	free(copy);
 	tmp = strtok(cmd_line, " \n");
 	while (tmp)
 	{
@@ -95,5 +94,9 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 		tmp = strtok(NULL, " \n");
 	}
 	(*ret)[i] = NULL;
+	free(copy);
+	for (int j = 0; j < i; j++)
+		free((*ret)[j]);
+	free(*ret);
 	return (size);
 }
