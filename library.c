@@ -14,6 +14,7 @@ int shell_exit(char *cmd_line, int cmd_num)
 	char *end = NULL, *tmp_msg = "Illegal number: ", *msg = NULL;
 
 	nb_args = parse_cmd_line(cmd_line, &args, cmd_num);
+	
 	if (nb_args == 2)
 	{
 		exit(0);
