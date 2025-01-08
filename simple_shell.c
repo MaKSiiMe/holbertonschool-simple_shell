@@ -109,6 +109,15 @@ int call_interactive_mode(void)
 		nb_args = parse_cmd_line(cmd_line, &args, cmd_num);
 		if (nb_args >= 2)
 			ret = synchronus_child_execution(args, cmd_num);
+		
+		for (int i = 0; i < nb_args; i++)
+			free(args[i]);
+
+		free(args);
+		free(cmd_line);
+		cmd_line = NULL;
+
 	}
+	free(cmd_line);
 	return (ret);
 }

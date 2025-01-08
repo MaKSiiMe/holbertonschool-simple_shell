@@ -83,10 +83,10 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 	*ret = (char **)malloc(sizeof(char *) * size);
 	if (!(*ret))
 	{
-		free(tmp);
+		free(copy);
 		exit(0);
 	}
-	tmp = NULL;
+	free(copy);
 	tmp = strtok(cmd_line, " \n");
 	while (tmp)
 	{

@@ -18,25 +18,34 @@ int shell_exit(char *cmd_line, int cmd_num)
 	{
 		exit(0);
 	}
-	code = strtol(args[1], &end, 10);
-	if (*end != '\0')
+	if (args[1] != NULL)
 	{
-		msg = malloc(sizeof(char *) * (strlen(tmp_msg) + 1 + strlen(args[1]) + 1));
-		strcpy(msg, tmp_msg);
-		strcat(msg, args[1]);
-		print_error_message(msg, "exit", cmd_num);
-		free(msg);
-		ret = 2;
+		code = strtol(args[1], &end, 10);
+		if (*end != '\0')
+		{
+			msg = malloc(strlen(tmp_msg) + strlen(args[1]) + 2);
+			strcpy(msg, tmp_msg);
+			strcat(msg, args[1]);
+			print_error_message(msg, "exit", cmd_num);
+			free(msg);
+			ret = 2;
+		}
+		else
+			exit(code);
 	}
 	else
-		exit(code);
-
+		ret = 2;
+	
+	for (int i = 0; i < nb_args; i++)
+		free(args[i]);
+	
+	free(args);
 	return (ret);
 }
 
 /**
  *  print_env - function display the environment of the current process
- *  Return : Void
+ *  Return: Void
  */
 
 void print_env(void)
