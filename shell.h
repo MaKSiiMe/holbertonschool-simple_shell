@@ -18,5 +18,6 @@ void shell_exit(char *cmd_line);
 void print_env(void);
 char *my_getenv(char *_env);
 char *find_in_path(char *command);
+void interruption_handling(int sig);
 
 #endif
