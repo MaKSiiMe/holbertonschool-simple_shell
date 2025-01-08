@@ -3,32 +3,35 @@
 /**
  * shell_exit - function implement the exit built-in
  * @cmd_line: command that was entered by the user and its arguments
+ * @cmd_num: Command line number
  * Return: Void
  */
 
-void shell_exit(char *cmd_line)
+int shell_exit(char *cmd_line, int cmd_num)
 {
 	char **args = NULL;
-	int nb_args = 0, code = 0;
-	char *end = NULL;
+	int nb_args = 0, code = 0, ret = 0;
+	char *end = NULL, *tmp_msg = "Illegal number: ", *msg = NULL;
 
-	nb_args = parse_cmd_line(cmd_line, &args);
+	nb_args = parse_cmd_line(cmd_line, &args, cmd_num);
 	if (nb_args == 2)
 	{
 		exit(0);
 	}
-	else if (nb_args == 3)
+	code = strtol(args[1], &end, 10);
+	if (*end != '\0')
 	{
-		code = strtol(args[1], &end, 10);
-		if (*end != '\0')
-		{
-			print_error_message("Error during conversion");
-		}
-		else
-			exit(code);
+		msg = malloc(sizeof(char *) * (strlen(tmp_msg) + 1 + strlen(args[1]) + 1));
+		strcpy(msg, tmp_msg);
+		strcat(msg, args[1]);
+		print_error_message(msg, "exit", cmd_num);
+		free(msg);
+		ret = 2;
 	}
 	else
-		print_error_message("Exit faillure");
+		exit(code);
+
+	return (ret);
 }
 
 /**
@@ -78,10 +81,12 @@ char *my_getenv(char *_env)
 /**
  * print_error_message - Prints an error message
  * @message: The error message to print
+ * @exec_name: Name of the executable
+ * @cmd_num: Command line number
  * Return : Void
  */
 
-void print_error_message(char *message)
+void print_error_message(char *message, char *exec_name, int cmd_num)
 {
-	printf("%s\n", message);
+	fprintf(stderr, "./hsh: %d: %s: %s\n", cmd_num, exec_name, message);
 }
