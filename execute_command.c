@@ -96,5 +96,6 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 	}
 	free(copy);
 	(*ret)[i] = NULL;
+	free(ret);
 	return (size);
 }
