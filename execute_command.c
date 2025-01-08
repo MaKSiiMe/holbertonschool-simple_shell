@@ -38,13 +38,13 @@ int synchronus_child_execution(char *args[])
 		else
 		{
 			print_error_message("file is not executable\n");
-			exit(0);
+			return (0);
 		}
 	}
 	else
 	{
 		print_error_message("file does not exist");
-		exit(0);
+		return (0);
 	}
 	return (ret);
 }
@@ -93,8 +93,7 @@ int parse_cmd_line(char *cmd_line, char ***ret)
 		i++;
 		tmp = strtok(NULL, " \n");
 	}
-	free(tmp);
 	free(copy);
-	(*ret)[++i] = NULL;
+	(*ret)[i] = NULL;
 	return (size);
 }
