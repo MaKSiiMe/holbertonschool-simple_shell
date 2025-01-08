@@ -12,14 +12,13 @@ char *find_in_path(char *command)
 	path = my_getenv("PATH");
 	if (path == NULL || strlen(path) == 0)
 	{
-		print_error_message("Error: Invalid PATH environment variable");
-		return (0);
+		return (NULL);
 	}
 	path_copy = strdup(path);
 	if (path_copy == NULL)
 	{
 		perror("strdup");
-		exit(EXIT_FAILURE);
+		return (NULL);
 	}
 	dir = strtok(path_copy, ":");
 	while (dir != NULL)
@@ -30,7 +29,7 @@ char *find_in_path(char *command)
 		{
 			perror("malloc");
 			free(path_copy);
-			exit(EXIT_FAILURE);
+			return (NULL);
 		}
 		sprintf(full_path, "%s/%s", dir, command);
 		if (access(full_path, F_OK) != -1 && access(full_path, X_OK) != -1)
@@ -42,5 +41,5 @@ char *find_in_path(char *command)
 		dir = strtok(NULL, ":");
 	}
 	free(path_copy);
-	return (0);
+	return (NULL);
 }
