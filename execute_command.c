@@ -62,6 +62,8 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 	char *tmp = NULL;
 	int i = 0, size = 0;
 	char *copy = strdup(cmd_line);
+	
+	printf("%p %s", cmd_line, cmd_line);
 
 	if ((*ret))
 	{
@@ -83,7 +85,7 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 	*ret = (char **)malloc(sizeof(char *) * size);
 	if (!(*ret))
 	{
-		free(tmp);
+		free(copy);
 		exit(0);
 	}
 	tmp = NULL;
@@ -93,8 +95,13 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 		(*ret)[i] = strdup(tmp);
 		i++;
 		tmp = strtok(NULL, " \n");
+	
 	}
-	free(copy);
 	(*ret)[i] = NULL;
+
+/*	for (i = 0; i < size - 1; i++)
+		free((*ret)[i]);
+	free(*ret);*/
+	free(copy);
 	return (size);
 }
