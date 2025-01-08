@@ -35,6 +35,19 @@ int call_non_interactive_mode(void)
 
 	return (ret);
 }
+/**
+ * interruption_handling - function to handle CTRL+C
+ * @sig: signal interruption number
+ */
+void interruption_handling(int sig)
+{
+	if (sig == 2)
+	{
+		printf("\n");
+		printf("($) ");
+		fflush(stdout);
+	}
+}
 
 /**
  * call_interactive_mode - function executing shell in interective mode
@@ -44,11 +57,13 @@ int call_non_interactive_mode(void)
 
 int call_interactive_mode(void)
 {
-	int ret = 0, run = 1, nb_args = 0, i = 0;
+	int ret = 0, run = 1, nb_args = 0;
 	ssize_t read_chars = 0;
 	char *cmd_line = NULL;
 	size_t len_cmd_line = 0;
 	char **args = NULL;
+
+	signal(SIGINT, interruption_handling);
 
 	while (run)
 	{
@@ -67,7 +82,7 @@ int call_interactive_mode(void)
 		if (strncmp(cmd_line, "exit", 4) == 0)
 			shell_exit(cmd_line);
 
-		if (strcmp(cmd_line, "env") == 0)
+		if (strncmp(cmd_line, "env", 3) == 0)
 		{
 			print_env();
 			continue;
@@ -79,8 +94,5 @@ int call_interactive_mode(void)
 		if (nb_args >= 2)
 			synchronus_child_execution(args);
 	}
-	for (i = nb_args - 1; i >= 0; i--)
-		free(args[i]);
-	free(args);
 	return (ret);
 }
