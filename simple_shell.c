@@ -67,7 +67,7 @@ int call_interactive_mode(void)
 		if (strncmp(cmd_line, "exit", 4) == 0)
 			shell_exit(cmd_line);
 
-		if (strncmp(cmd_line, "env", 3) == 0)
+		if (strcmp(cmd_line, "env") == 0)
 		{
 			print_env();
 			continue;
