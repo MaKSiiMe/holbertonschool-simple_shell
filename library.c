@@ -12,12 +12,7 @@ void shell_exit(char *cmd_line)
 	int nb_args = 0, code = 0;
 	char *end = NULL;
 
-	printf("SHELL_EXIT\n");
-
 	nb_args = parse_cmd_line(cmd_line, &args);
-
-	printf("Look %d\n", nb_args);
-	printf("args[0] = %p\n", args[0]);
 	if (nb_args == 2)
 	{
 		exit(0);
