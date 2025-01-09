@@ -110,8 +110,10 @@ void free_args(char **args)
 	if (args)
 	{
 		while (args[i])
-			free(args[i++]);
-
+		{
+			free(args[i]);
+			i++;
+		}
 		free(args);
 	}
 }
