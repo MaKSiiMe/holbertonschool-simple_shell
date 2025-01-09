@@ -22,22 +22,25 @@ char *find_in_path(char *command)
 {
 	char *path = NULL, *path_copy = NULL, *dir = NULL, *full_path = NULL;
 
-	path = my_getenv("PATH");
-	if (path == NULL || strlen(path) == 0)
-	{
+	if (!command || strlen(command) == 0)
 		return (NULL);
-	}
+
+	if (strchr(command, '/'))
+		return (NULL);
+
+	path = my_getenv("PATH");
+	if (!path || strlen(path) == 0)
+		return (NULL);
+
 	path_copy = strdup(path);
 	free(path);
-	if (path_copy == NULL)
-	{
-		perror("strdup");
+	if (!path_copy)
+	{	perror("strdup");
 		return (NULL);
 	}
 	dir = strtok(path_copy, ":");
 	while (dir != NULL)
-	{
-		full_path = malloc(strlen(dir) + strlen(command) + 2);
+	{	full_path = malloc(strlen(dir) + strlen(command) + 2);
 		if (full_path == NULL)
 		{
 			perror("malloc");
