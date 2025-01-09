@@ -10,8 +10,8 @@
 int shell_exit(char *cmd_line, int cmd_num)
 {
 	char **args = NULL;
-	int nb_args = 0, code = 0, ret = 0;
-	char *end = NULL, *tmp_msg = "Illegal number: ", *msg = NULL;
+	int nb_args = 0, code = 0;
+	char *end = NULL;
 
 	nb_args = parse_cmd_line(cmd_line, &args, cmd_num);
 	if (nb_args == 1)
@@ -35,20 +35,13 @@ int shell_exit(char *cmd_line, int cmd_num)
 	code = strtol(args[1], &end, 10);
 	if (*end != '\0')
 	{
-		msg = malloc(sizeof(char) * (strlen(tmp_msg) + strlen(args[1]) + 1));
-		strcpy(msg, tmp_msg);
-		strcat(msg, args[1]);
-		print_error_msg(msg, "exit", cmd_num);
-		free(msg);
-		ret = 2;
-	}
-	else
-	{
-		free(cmd_line);
+		print_error_msg("Illegal number", "exit", cmd_num);
 		free_args(args);
-		exit(code);	}
+		return (2);
+	}
+	free(cmd_line);
 	free_args(args);
-	return (ret);
+	exit(code);
 }
 
 /**
