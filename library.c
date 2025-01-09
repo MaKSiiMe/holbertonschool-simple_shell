@@ -12,7 +12,7 @@ int shell_exit(char *cmd_line, int cmd_num)
 	int nb_args = 0, code = 0;
 	char *end = NULL;
 
-	nb_args = parse_cmd_line(cmd_line, &args, cmd_num);
+	nb_args = parse_cmd_line(cmd_line, &args);
 
 	if (nb_args == 2)
 	{
