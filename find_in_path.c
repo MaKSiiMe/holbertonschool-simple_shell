@@ -48,7 +48,7 @@ char *find_in_path(char *command)
 			return (NULL);
 		}
 		sprintf(full_path, "%s/%s", dir, command);
-		if (access(full_path, F_OK) != -1 && access(full_path, X_OK) != -1)
+		if (access(full_path, F_OK) == 0 && access(full_path, X_OK) == 0)
 		{
 			free(path_copy);
 			return (full_path);
