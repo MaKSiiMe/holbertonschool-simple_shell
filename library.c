@@ -82,7 +82,7 @@ char *my_getenv(char *_env)
 }
 
 /**
- * print_error_message - Prints an error message
+ * print_error_msg - Prints an error message
  * @message: The error message to print
  * @exec_name: Name of the executable
  * @cmd_num: Command line number
