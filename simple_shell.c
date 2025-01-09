@@ -37,7 +37,7 @@ int call_non_interactive_mode(void)
 		if (cmd_line[0] == '\n')
 			continue;
 
-		nb_args = parse_cmd_line(cmd_line, &args, cmd_num);
+		nb_args = parse_cmd_line(cmd_line, &args);
 		if (nb_args)
 			synchronus_child_execution(args, cmd_num);
 		free_args(args);
@@ -97,7 +97,7 @@ int call_interactive_mode(void)
 		}
 		if (cmd_line[0] == '\n')
 			continue;
-		nb_args = parse_cmd_line(cmd_line, &args, cmd_num);
+		nb_args = parse_cmd_line(cmd_line, &args);
 		if (nb_args)
 			ret = synchronus_child_execution(args, cmd_num);
 		free_args(args);
