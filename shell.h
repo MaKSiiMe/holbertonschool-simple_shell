@@ -11,7 +11,7 @@ extern char **environ;
 
 int synchronus_child_execution(char *args[], int cmd_num);
 char *my_strdup(const char *copy_str);
-int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num);
+int parse_cmd_line(char *cmd_line, char ***ret);
 void free_find_in_path(char *path_copy, char *full_path);
 char *find_in_path(char *command);
 int shell_exit(char *cmd_line, int cmd_num);
