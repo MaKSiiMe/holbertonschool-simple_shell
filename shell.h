@@ -20,5 +20,6 @@ char *my_getenv(char *_env);
 char *find_in_path(char *command);
 void interruption_handling(int sig);
 void free_args(char **args);
+char *my_strdup(const char *copy_str);
 
 #endif
