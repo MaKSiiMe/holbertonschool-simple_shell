@@ -35,6 +35,7 @@ int call_non_interactive_mode(void)
 		if (nb_args)
 			synchronus_child_execution(args, cmd_num);
 		free_args(args);
+		args = NULL;
 	}
 	free(cmd_line);
 	return (ret);
@@ -80,21 +81,19 @@ int call_interactive_mode(void)
 		if (strncmp(cmd_line, "exit", 4) == 0)
 		{	ret = shell_exit(cmd_line, cmd_num);
 			free(cmd_line);
-			continue;
-		}
+			continue;	}
 		if (strncmp(cmd_line, "env", 3) == 0)
 		{	print_env();
 			free(cmd_line);
-			continue;
-		}
+			continue;	}
 		if (cmd_line[0] == '\n')
 		{	free(cmd_line);
-			continue;
-		}
+			continue;	}
 		nb_args = parse_cmd_line(cmd_line, &args, cmd_num);
 		if (nb_args)
 			ret = synchronus_child_execution(args, cmd_num);
 		free_args(args);
+		args = NULL;
 		free(cmd_line);
 		cmd_line = NULL;
 		len_cmd_line = 0;
