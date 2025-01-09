@@ -20,7 +20,7 @@ int synchronus_child_execution(char *args[], int cmd_num)
 		if (access(tmp, X_OK) != -1)
 		{	pid = fork();
 			if (pid < 0)
-			{	print_error_msg("Cannot create child process", args[0], cmd_num);
+			{
 				return (1);
 			}
 			else if (pid == 0)
@@ -74,10 +74,9 @@ char *my_strdup(const char *copy_str)
  * parse_cmd_line - function parses a command line and transform an array args
  * @ret: pointer to an array that will receive the address of the array of args
  * @cmd_line: String containing the command line to be parsed
- * @cmd_num: Command line number
  * Return: the number of arguments
  */
-int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
+int parse_cmd_line(char *cmd_line, char ***ret)
 {
 	char *tmp = NULL;
 	int i = 0, size = 0;
@@ -86,12 +85,12 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 	*ret = NULL;
 	copy = strdup(cmd_line);
 	if ((*ret))
-	{	print_error_msg("Error ret is not NULL", "./hsh", cmd_num);
+	{
 		free(copy);
 		return (0);
 	}
 	if (!copy)
-	{	print_error_msg("Error with strdup", "./hsh", cmd_num);
+	{
 		return (0);
 	}
 	tmp = strtok(copy, " \n");
