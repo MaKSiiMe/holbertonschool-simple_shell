@@ -83,6 +83,7 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 	int i = 0, size = 0;
 	char *copy = NULL;
 
+	*ret = NULL;
 	copy = strdup(cmd_line);
 	if ((*ret))
 	{	print_error_msg("Error ret is not NULL", "./hsh", cmd_num);
