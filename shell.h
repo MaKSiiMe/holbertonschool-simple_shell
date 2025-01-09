@@ -17,7 +17,7 @@ char *find_in_path(char *command);
 int shell_exit(char *cmd_line, int cmd_num);
 void print_env(void);
 char *my_getenv(char *_env);
-void print_error_message(const char *message, const char *exec_name, int cmd_num);
+void print_error_msg(const char *message, const char *exec_name, int cmd_num);
 void free_args(char **args);
 int call_non_interactive_mode(void);
 int call_interactive_mode(void);
