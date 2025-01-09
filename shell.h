@@ -1,25 +1,27 @@
-#ifndef SIMPLE_SHELL_H
-#define SIMPLE_SHELL_H
+#ifndef SHELL_H
+#define SHELL_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/wait.h>
 #include <unistd.h>
-#include <sys/types.h>
+#include <sys/wait.h>
 
 extern char **environ;
 
-int call_interactive_mode(void);
-int call_non_interactive_mode(void);
 int synchronus_child_execution(char *args[], int cmd_num);
-void print_error_message(char *message, char *exec_name, int cmd_num);
+char *my_strdup(const char *copy_str);
 int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num);
+void free_find_in_path(char *path_copy, char *full_path);
+char *find_in_path(char *command);
 int shell_exit(char *cmd_line, int cmd_num);
 void print_env(void);
 char *my_getenv(char *_env);
-char *find_in_path(char *command);
-void interruption_handling(int sig);
+void print_error_message(const char *message, const char *exec_name, int cmd_num);
 void free_args(char **args);
-char *my_strdup(const char *copy_str);
+int call_non_interactive_mode(void);
+int call_interactive_mode(void);
+void free_find_in_path(char *path_copy, char *full_path);
+char *find_in_path(char *command);
 
-#endif
+#endif /* SHELL_H */
