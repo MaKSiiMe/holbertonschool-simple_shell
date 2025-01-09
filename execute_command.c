@@ -94,10 +94,10 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 	{	print_error_msg("Error with strdup", "./hsh", cmd_num);
 		return (0);
 	}
-	tmp = strtok(copy, " ");
+	tmp = strtok(copy, " \n");
 	while (tmp)
 	{	size++;
-		tmp = strtok(NULL, " ");
+		tmp = strtok(NULL, " \n");
 	}
 	size++;
 	*ret = (char **)malloc(sizeof(char *) * size);
