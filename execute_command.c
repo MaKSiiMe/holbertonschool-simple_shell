@@ -50,6 +50,28 @@ int synchronus_child_execution(char *args[], int cmd_num)
 	return (ret);
 }
 /**
+ *
+ *
+ *
+ */
+
+char *my_strdup(const char *copy_str)
+{
+	char *ret = NULL;
+	size_t len = strlen(copy_str) + 1;
+
+	if (!copy_str)
+		return (NULL);
+	ret = malloc(len);
+
+	if (!ret)
+		return (NULL);
+	memcpy(ret, copy_str, len);
+	return (ret);
+}
+
+
+/**
  * parse_cmd_line - function parses a command line and transform an array args
  * @ret: pointer to an array that will receive the adress of the array of args
  * @cmd_line: String containing the command line to be parsed
@@ -61,13 +83,16 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 {
 	char *tmp = NULL;
 	int i = 0, size = 0;
-	char *copy = strdup(cmd_line);
+	char *copy = NULL;
+	
+	copy = strdup(cmd_line);
 	
 	printf("%p %s", cmd_line, cmd_line);
 
 	if ((*ret))
 	{
 		print_error_message("Error ret is not NULL", "./hsh", cmd_num);
+		free(copy);
 		return (0);
 	}
 	if (!copy)
@@ -88,11 +113,11 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 		free(copy);
 		exit(0);
 	}
-	tmp = NULL;
+	free(tmp);
 	tmp = strtok(cmd_line, " \n");
 	while (tmp)
 	{
-		(*ret)[i] = strdup(tmp);
+		(*ret)[i] = my_strdup(tmp);
 		i++;
 		tmp = strtok(NULL, " \n");
 	
@@ -100,8 +125,9 @@ int parse_cmd_line(char *cmd_line, char ***ret, int cmd_num)
 	(*ret)[i] = NULL;
 
 /*	for (i = 0; i < size - 1; i++)
-		free((*ret)[i]);
-	free(*ret);*/
+		free((*ret)[i]);*/
+	free(*ret);
 	free(copy);
+	free(tmp);
 	return (size);
 }
