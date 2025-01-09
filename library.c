@@ -14,15 +14,28 @@ int shell_exit(char *cmd_line, int cmd_num)
 	char *end = NULL, *tmp_msg = "Illegal number: ", *msg = NULL;
 
 	nb_args = parse_cmd_line(cmd_line, &args, cmd_num);
-	if (nb_args == 2)
+	if (nb_args == 1)
 	{
 		free(cmd_line);
+		free_args(args);
 		exit(0);
+	}
+	if (nb_args > 2)
+	{
+		print_error_msg("Too many arguments", "exit", cmd_num);
+		free_args(args);
+		return (2);
+	}
+	if (!args[1])
+	{
+		print_error_msg("Missing argument", "exit", cmd_num);
+		free_args(args);
+		return (2);
 	}
 	code = strtol(args[1], &end, 10);
 	if (*end != '\0')
 	{
-		msg = malloc(sizeof(char *) * (strlen(tmp_msg) + strlen(args[1]) + 1));
+		msg = malloc(sizeof(char) * (strlen(tmp_msg) + strlen(args[1]) + 1));
 		strcpy(msg, tmp_msg);
 		strcat(msg, args[1]);
 		print_error_msg(msg, "exit", cmd_num);
@@ -33,9 +46,7 @@ int shell_exit(char *cmd_line, int cmd_num)
 	{
 		free(cmd_line);
 		free_args(args);
-		exit(code);
-	}
-	free(end);
+		exit(code);	}
 	free_args(args);
 	return (ret);
 }
@@ -109,8 +120,10 @@ void free_args(char **args)
 		while (args[i])
 		{
 			free(args[i]);
+			args[i] = NULL;
 			i++;
 		}
 		free(args);
+		args = NULL;
 	}
 }
