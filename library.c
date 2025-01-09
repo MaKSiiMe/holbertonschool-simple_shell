@@ -4,9 +4,8 @@
  * shell_exit - function implement the exit built-in
  * @cmd_line: command that was entered by the user and its arguments
  * @cmd_num: Command line number
- * Return: Void
+ * Return: Exit status code
  */
-
 int shell_exit(char *cmd_line, int cmd_num)
 {
 	char **args = NULL;
@@ -14,21 +13,22 @@ int shell_exit(char *cmd_line, int cmd_num)
 	char *end = NULL;
 
 	nb_args = parse_cmd_line(cmd_line, &args, cmd_num);
-	if (nb_args == 1)
+
+	if (nb_args == 2)
 	{
 		free(cmd_line);
 		free_args(args);
 		exit(0);
 	}
-	if (nb_args > 2)
+	if (nb_args > 3)
 	{
 		print_error_msg("Too many arguments", "exit", cmd_num);
 		free_args(args);
 		return (2);
 	}
-	if (!args[1])
+	if (args[1] == NULL)
 	{
-		print_error_msg("Missing argument", "exit", cmd_num);
+		print_error_msg("Illegal number", "exit", cmd_num);
 		free_args(args);
 		return (2);
 	}
