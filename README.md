@@ -83,6 +83,8 @@ The shell reads commands from a file or a pipe and executes them.
 
 ### 📖 MAN page
 
+![Mon image](https://imgur.com/KiOneXz.png)
+
 Execution: `man ./man_1_simple_shell`
 
 
