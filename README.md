@@ -87,7 +87,6 @@ Execution: `man ./man_1_simple_shell`
 
 ![Mon image](https://imgur.com/KiOneXz.png)
 
-**This is a simple shell project developed as part of the Holberton School curriculum.**
 
 
 ## 🧑💻 Authors
