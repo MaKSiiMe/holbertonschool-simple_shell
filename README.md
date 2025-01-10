@@ -18,26 +18,26 @@ This project implements a simplified Shell in C, mimicking some of the basic fou
 
 ## ✨Features
 
-<div style="border: 1px solid black; padding: 10px;">
-  🔨**Command Execution:** Executes external commands   (e.g.,**ls**, **cat**... ) using **==fork()==** and **==execve()==**.                                                          
- 🧩 **Argument handling:** The shell can handle arguments passed to commands (e.g.,**ls -a**).
-  🤖 **Built-in commands:** Implementation of the **exit** command which allows you to quit the shell.
-🧭**Path searching:** Shell searches for commands in the directories specified by the **PATH** environmentvariable.
-⚠️ **Error handling:** Shell handles basics errors such as invalid commands or system call failures
- ✏️**Two modes:**  
- - **Interactive mode:** The shell displays a prompt and waits for the user to type a command.
-- **Non-interactive mode:** The shell reads commands from a file or a pipe and executes them.
+| Feature | Description |
+| :--------------------: | :--------------------------: |
+  |🔨**Command Execution:** |Executes external commands   (e.g.,**ls**, **cat**... ) using **==fork()==** and **==execve()==**.|                                                          
+ |🧩 **Argument handling:** |The shell can handle arguments passed to commands (e.g.,**ls -a**).|
+  |🤖 **Built-in commands:** |Implementation of the **exit** command which allows you to quit the shell.|
+|🧭**Path searching:** |Shell searches for commands in the directories specified by the **PATH** environmentvariable.|
+|⚠️ **Error handling:** |Shell handles basics errors such as invalid commands or system call failures|
+ |✏️**Two modes:**  |
+|| - **Interactive mode:** The shell displays a prompt and waits for the user to type a command.|
+||- **Non-interactive mode:** The shell reads commands from a file or a pipe and executes them.|
 
 
-
-</div>
 ## 🤔 Flowchart
 
 ![Mon image](https://imgur.com/JIRFPRK.png)
 ## 📂 Files main functions
 
 | FILE  |DESCRIPTION|
-|---------------------|-----------------------------------------------------------------------------|
+|:---------------------:|:-----------------------------------------------------------------------------:|
+
 |`execute_command.c` |contains the functions that are mandatory for the shell to work|
 |`shell.h` |contains the main structure and the function prototypes|
 |`man_1_simple_shell` |man page of the imple shell program
