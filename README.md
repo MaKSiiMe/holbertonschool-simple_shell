@@ -40,7 +40,7 @@ This project implements a simplified Shell in C, mimicking some of the basic fou
 
 |`execute_command.c` |contains the functions that are mandatory for the shell to work|
 |`shell.h` |contains the main structure and the function prototypes|
-|`man_1_simple_shell` |man page of the imple shell program
+|`man_1_simple_shell` |man page of the imple shell program|
 |`find_in_path.c`  |contains the functionsearch for a command in the PATH |
 |`library.c`   |contains small functions for added value functionality (e.g.print env)|
 |`shell.c`|contains my main shell function|
