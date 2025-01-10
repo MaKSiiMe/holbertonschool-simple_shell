@@ -20,6 +20,7 @@ int call_non_interactive_mode(void)
 		if (read_chars == EOF)
 		{
 			free(cmd_line);
+			cmd_line = NULL;
 			return (0);
 		}
 		if (strncmp(cmd_line, "exit", 4) == 0 &&
