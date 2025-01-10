@@ -95,5 +95,5 @@ Execution: `man ./man_1_simple_shell`
 [Charlène MARTIN](https://github.com/Knarta)
 
 <p align="center">
-<img src="https://ml.globenewswire.com/Resource/Download/a08e6c28-55be-44c8-8461-03544f094b38" width="800" height="200">
+<img src="https://ml.globenewswire.com/Resource/Download/a08e6c28-55be-44c8-8461-03544f094b38" width="800" height="100">
 </p>
