@@ -1,0 +1,61 @@
+.TH simple_shell 1 "2025, January" "1.0" "Simple Shell Manual"
+
+.SH NAME
+simple_shell \- a simple UNIX command interpreter
+
+.SH SYNOPSIS
+.B ./simple_shell
+
+.SH DESCRIPTION
+.B simple_shell
+is a simple UNIX command interpreter that reads commands from either a file or standard input and executes them.
+
+.SH FILES
+- \execute_command.c\fP: contains a function to execute commands.
+- \find_in_path.c\fP: contains the path management.
+- \library.c\fP: contains functions to handle special commands like env, exit...
+- \shell.c\fP: contains the main function of the shell (entry point).
+- \shell.h\fP: includes libraries and function.
+- \simple_shell.c\fP: contains functions to handle special commands like env, exit...
+
+.SH INSTALLING
+To install and run Simple Shell, follow these steps:
+.br
+1. Clone the repository using the following command:
+.br
+\(dqgit clone \fIhttps://github.com/MaKSiiMe/holbertonschool-simple_shell.git\fR\(dq
+.br
+2. Compile the program by running the following command:
+.br
+\(dqgcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh\(dq
+.br
+3. Run the program with the command in \fBSYNOPSIS\fP.
+
+.SH USAGE
+.PP
+.B simple_shell
+can be started with the following command:
+.PP
+.EX
+$ ./simple_shell
+.EE
+.PP
+Once started, the shell will read commands from standard input or from a file if a file is provided as an argument.
+
+.SH COMMANDS
+The following commands are built into the simple_shell:
+.TP
+- \fBcd\fP: Change the current directory.
+.TP
+- \fBexit\fP: Exit the shell.
+.TP
+- \fBenv\fP: Print the environment variables.
+
+.SH AUTHOR
+Written by \fB Charlène MARTIN\fP and \fB Maxime TRUEL\fP.
+
+.SH COPYRIGHT
+This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+.SH SEE ALSO
+man bash
