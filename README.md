@@ -36,8 +36,7 @@ This project implements a simplified Shell in C, mimicking some of the basic fou
 ## 📂 Files main functions
 
 | FILE  |DESCRIPTION|
-| -------------------- | -------------------------- |
-
+| :--------------------: | :--------------------------: |
 |`execute_command.c` |contains the functions that are mandatory for the shell to work|
 |`shell.h` |contains the main structure and the function prototypes|
 |`man_1_simple_shell` |man page of the imple shell program|
