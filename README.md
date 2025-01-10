@@ -92,9 +92,11 @@ Execution: `man ./man_1_simple_shell`
 
 ## 🧑💻 Authors
 
-[Maxime TRUEL](https://github.com/MaKSiiMe),
+
+[Maxime TRUEL](https://github.com/MaKSiiMe),<br>
 [Charlène MARTIN](https://github.com/Knarta)
 
+**This is a simple shell project developed as part of the Holberton School curriculum.**
 <p align="center">
 <img src="https://ml.globenewswire.com/Resource/Download/a08e6c28-55be-44c8-8461-03544f094b38" width="400" height="100">
 </p>
