@@ -15,7 +15,7 @@ int synchronus_child_execution(char *args[], int cmd_num)
 	tmp = find_in_path(args[0]);
 	if (!tmp)
 		tmp = args[0];
-	if (access(tmp, F_OK) != -1)
+	if (tmp && access(tmp, F_OK) != -1)
 	{
 		if (access(tmp, X_OK) != -1)
 		{	pid = fork();
