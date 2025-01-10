@@ -39,7 +39,8 @@ int call_non_interactive_mode(void)
 			continue;
 
 		nb_args = parse_cmd_line(cmd_line, &args);
-		if (nb_args)
+
+		if (nb_args > 1)
 			synchronus_child_execution(args, cmd_num);
 		free_args(args);
 		args = NULL;
