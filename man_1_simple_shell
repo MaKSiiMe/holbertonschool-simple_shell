@@ -11,17 +11,19 @@ simple_shell \- a simple UNIX command interpreter
 is a simple UNIX command interpreter that reads commands from either a file or standard input and executes them.
 
 .SH FILES
-- \fBexecute_command.c\fP: contains a function to execute commands.
+- \fBexecute_command.c\fP: contains the functions that are mandatory for the shell to work.
 .br
-- \fBfind_in_path.c\fP: contains the path management.
+- \fBfind_in_path.c\fP: contains the functionsearch for a command in the PATH.
 .br
-- \fBlibrary.c\fP: contains functions to handle special commands like env, exit...
+- \fBlibrary.c\fP: contains small functions for added value functionality (e.g.print env).
 .br
 - \fBshell.c\fP: contains the main function of the shell (entry point).
 .br
-- \fBshell.h\fP: includes libraries and function.
+- \fBshell.h\fP: contains the main structure and the function prototypes.
 .br
 - \fBsimple_shell.c\fP: contains functions to handle special commands like env, exit...
+.br
+- \fBman_1_simple_shell\fP: man page of the imple shell program.
 
 .SH INSTALLING
 To install and run Simple Shell, follow these steps:
